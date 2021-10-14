@@ -16,10 +16,10 @@ const printCell = (cell, state) => {
 };
 
 const corners = (state = []) => {
-  if (state.length ===  0) {
+  if (state.length === 0) {
     return {
       topRight: [0, 0],
-      bottomRight: [0, 0],
+      bottomLeft: [0, 0]
     }
   }
 
@@ -27,7 +27,7 @@ const corners = (state = []) => {
   const ys = state.map(([_, y]) => y);
   return {
     topRight: [Math.max(...xs), Math.max(...ys)],
-    bottomRight: [Math.min(...ys), Math.min(...ys)],
+    bottomLeft: [Math.min(...xs), Math.min(...ys)]
   }
 };
 
@@ -44,11 +44,11 @@ const printCells = (state) => {
   return accumulator;
 };
 
-const getNeighborsOf = ([x, y]) => {
+const getNeighborsOf = ([x, y]) => [
   [x-1, y+1], [x, y+1], [x+1, y+1],
   [x-1, y],             [x+1, y],
   [x-1, y-1], [x, y-1], [x+1, y-1]
-};
+];
 
 const getLivingNeighbors = (cell, state) => {
   return getNeighborsOf(cell).filter((n) => contains.bind(state)(n));
